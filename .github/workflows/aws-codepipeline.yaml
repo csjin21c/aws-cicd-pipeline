@@ -51,7 +51,7 @@ jobs:
       - name: Create CodeDeploy Bundle
         run: |
           mkdir -p build
-          zip -r build/bundle.zip appspec.yaml scripts/
+          zip -r build/bundle.zip appspec.yml scripts/
 
       # 5. 배포 번들 S3 업로드
       - name: Upload bundle to S3
