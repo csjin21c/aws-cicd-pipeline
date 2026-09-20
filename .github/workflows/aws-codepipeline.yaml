@@ -43,7 +43,7 @@ jobs:
           # docker build의 마지막 마침표( . )은 context경로를 의미합니다.
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG \
                        -t $ECR_REGISTRY/$ECR_REPOSITORY:latest \
-                       -f ./nginx/Docker .
+                       -f ./nginx/Dockerfile .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:latest
 
