@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MSP 6기 CI/CD 실습 (Neon-Dark Ver.)</title>
+    <style>
+      body {
+        font-family: 'Courier New', Courier, monospace; /* 더 공학적인 느낌의 고정폭 글꼴 */
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        margin: 0;
+        /* [변경] 배경: 매우 어두운 심연색과 미세한 격자 패턴 */
+        background-color: #0a0e17;
+        background-image: 
+          linear-gradient(rgba(0, 242, 254, 0.03) 1px, transparent 1px),
+          linear-gradient(90px, rgba(0, 242, 254, 0.03) 1px, transparent 1px);
+        background-size: 20px 20px;
+        background-attachment: fixed;
+      }
+
+      .container {
+        text-align: center;
+        /* [변경] 컨테이너: 반투명 글래스모피즘 & 네온 블루 글로우 */
+        background: rgba(10, 14, 23, 0.75);
+        backdrop-filter: blur(12px); /* 흐림 효과 */
+        -webkit-backdrop-filter: blur(12px);
+        padding: 3rem;
+        border-radius: 16px; /* 더 각진 현대적인 느낌 */
+        
+        /* 네온 블루 테두리와 강력한 글로우 효과 */
+        border: 1px solid rgba(0, 242, 254, 0.3);
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.15), inset 0 0 10px rgba(0, 242, 254, 0.1);
+        
+        max-width: 380px;
+        width: 85%;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* 더 탄력적인 애니메이션 */
+        cursor: pointer;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* 스캔라인 효과 추가 (사이버펑크 느낌) */
+      .container::after {
+        content: "";
+        position: absolute;
+        top: 0; left: 0; width: 100%; height: 100%;
+        background: linear-gradient(rgba(255,255,255,0) 50%, rgba(0, 242, 254, 0.05) 50%);
+        background-size: 100% 4px;
+        z-index: 1;
+        pointer-events: none;
+      }
+
+      .container:hover {
+        transform: scale(1.03); /* 위가 아닌 크기가 커짐 */
+        /* [변경] 호버 시 테두리와 글로우가 더 강해짐 */
+        border: 1px solid rgba(0, 242, 254, 0.6);
+        box-shadow: 0 0 40px rgba(0, 242, 254, 0.4), inset 0 0 15px rgba(0, 242, 254, 0.2);
+      }
+
+      /* 이미지 스타일: 원형 유지하되 테두리 네온 블루로 변경 */
+      .profile-img {
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1.5rem;
+        /* [변경] 테두리: 네온 터코이즈 */
+        border: 2px solid #00f2fe;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.5);
+        position: relative;
+        z-index: 2;
+      }
+
+      h1 {
+        /* [변경] 제목: 밝은 터코이즈 네온 */
+        color: #00f2fe;
+        text-shadow: 0 0 10px rgba(0, 242, 254, 0.7);
+        margin: 0 0 0.8rem 0;
+        font-size: 1.9rem;
+        letter-spacing: 1px;
+        position: relative;
+        z-index: 2;
+      }
+      p {
+        /* [변경] 본문: 연한 터코이즈 그레이 */
+        color: #a0acbd;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 2;
+      }
+      strong {
+        /* [변경] 포인트: 형광 연두 */
+        color: #39ff14;
+        text-shadow: 0 0 5px rgba(57, 255, 20, 0.5);
+      }
+
+      .status-badge {
+        display: inline-block;
+        padding: 0.7rem 1.5rem;
+        /* [변경] 뱃지: 사이버펑크 핫핑크/보라 그라데이션 */
+        background: linear-gradient(45deg, #ff0055, #a200ff);
+        color: white;
+        border-radius: 4px; /* 각진 스타일 */
+        font-weight: bold;
+        font-size: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+        
+        /* 뱃지 전용 강력한 네온 글로우 */
+        box-shadow: 0 0 20px rgba(255, 0, 85, 0.6);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        
+        position: relative;
+        z-index: 2;
+        
+        /* 깜빡이는 애니메이션 추가 */
+        animation: pulse-red 2s infinite;
+      }
+
+      @keyframes pulse-red {
+        0% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
+        50% { box-shadow: 0 0 30px rgba(255, 0, 85, 0.8); }
+        100% { box-shadow: 0 0 15px rgba(255, 0, 85, 0.5); }
+      }
+
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <img
+        src="./images/graduation-cap.png"
+        alt="Graduation Cap"
+        class="profile-img"
+      />
+
+      <h1>> MSP_7th_Gen</h1>
+      <p>[$] <strong>GitHub Actions</strong><br />> Nginx 자동 배포_성공...</p>
+      <div class="status-badge">System Active</div>
+    </div>
+  </body>
+</html>
