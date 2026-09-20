@@ -1,0 +1,23 @@
+version: 0.0
+os: linux
+
+# S3 번들 파일이 EC2 인스턴스에 복사될 위치
+files:
+  - source: / # 압축 파일 내부의 전체 내용물(루트)을
+    destination: /home/ec2-user/app # EC2의 이 위치로 복사(디렉토리 자동생성)
+
+# 복사된 파일/폴더 권한 설정
+permissions:
+  - object: /home/ec2-user/app # 소유권 변경 대상 지정
+    pattern: "**" # object 밑에 있는 모든 하위 디렉토리 모두를 대상으로 함.(-R옵션 역할)
+    owner: ec2-user
+    group: ec2-user
+  - object: /home/ec2-user/app/scripts/deploy.sh
+    mode: 755
+
+# CodeDeploy 배포 라이프사이클 훅(Hooks)
+hooks:
+  ApplicationStart:
+    - location: scripts/deploy.sh
+      timeout: 300
+      runas: root
